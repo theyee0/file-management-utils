@@ -55,10 +55,10 @@ while true; do
             continue
         ;;
         -e | --list-extensions)
-	    # Passes nested directory listing through two regexes:
-	    # 1. Detect lines with filename extensions. Looks for pattern .*(\.[^\./]+)$, and takes only the paranthesized region
-	    # If the first regex fails (i.e. the file has no extension), a second regex is used
-	    # 2. Detect filenames (all files that make it to this step will have no extensions). Looks for pattern .*/([^\./]+)$
+            # Passes nested directory listing through two regexes:
+            # 1. Detect lines with filename extensions. Looks for pattern .*(\.[^\./]+)$, and takes only the paranthesized region
+            # If the first regex fails (i.e. the file has no extension), a second regex is used
+            # 2. Detect filenames (all files that make it to this step will have no extensions). Looks for pattern .*/([^\./]+)$
             find $INPUT_DIR -type f | sed -e "s/.*\(\.[^\.\/]\+\)$/\1/" | sed -e "s/.*\/\([^\/\.]\+\)$/\1/" | sort | uniq -c
             shift
             continue
@@ -97,59 +97,59 @@ while true; do
         -o | --output)
             OUTPUT_DIR="$2"
             shift 2
-	    continue
+            continue
         ;;
         -h | --help)
         ;;
         --regex-based)
             REGEX_BASED=true
             shift
-	    continue
+            continue
         ;;
         --copy-stdin)
-	    find --regex $2 -type f -0 <&0 | xargs -0 -I{} cp {} $OUTPUT_DIR
-	    shift 2
-	    continue
+            find --regex $2 -type f -0 <&0 | xargs -0 -I{} cp {} $OUTPUT_DIR
+            shift 2
+            continue
         ;;
         --delete-stdin)
-	    find --regex $2 -type f -0 <&0 | xargs -0 -I{} rm
-	    shift 2
-	    continue
+            find --regex $2 -type f -0 <&0 | xargs -0 -I{} rm
+            shift 2
+            continue
         ;;
         --trash-stdin)
-	    mkdir -p ~/.local/share/Trash/
-	    find --regex $2 -type f -0 <&0 | xargs -0 -I{} mv {} ~/.local/share/Trash/
-	    shift 2
-	    continue
+            mkdir -p ~/.local/share/Trash/
+            find --regex $2 -type f -0 <&0 | xargs -0 -I{} mv {} ~/.local/share/Trash/
+            shift 2
+            continue
         ;;
         --move-stdin)
-	    find --regex $2 -type f -0 <&0 | xargs -0 -I{} mv {} $OUTPUT_DIR
-	    shift 2
-	    continue
+            find --regex $2 -type f -0 <&0 | xargs -0 -I{} mv {} $OUTPUT_DIR
+            shift 2
+            continue
         ;;
         --clip-regex-end)
-	    echo "Not yet implemented!"
-	    shift
-	    continue
+            echo "Not yet implemented!"
+            shift
+            continue
         ;;
         --delete-extension)
-	    find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 rm
-	    shift 2
-	    continue
+            find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 rm
+            shift 2
+            continue
         ;;
         --trash-extension)
-	    mkdir -p ~/.local/share/Trash/
-	    find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} mv {} ~/.local/share/Trash/
-	    shift 2
-	    continue
+            mkdir -p ~/.local/share/Trash/
+            find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} mv {} ~/.local/share/Trash/
+            shift 2
+            continue
         ;;
         --copy-extension)
-	    find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} cp {} $OUTPUT_DIR
-	    shift 2
-	    continue
+            find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} cp {} $OUTPUT_DIR
+            shift 2
+            continue
         ;;
         --move-extension)
-	    find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} mv {} $OUTPUT_DIR
+            find $INPUT_DIR --regex "^.*$2$" -type f -0 | xargs -0 -I{} mv {} $OUTPUT_DIR
         ;;
         --)
             shift
